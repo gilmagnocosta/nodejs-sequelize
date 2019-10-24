@@ -2,19 +2,30 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("users", {
+    return queryInterface.createTable("addresses", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
       },
-      name: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: { model: "users", key: "id" },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
+      street: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      email: {
+      zipcode: {
         type: Sequelize.STRING,
+        allowNull: false
+      },
+      number: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       created_at: {
@@ -29,6 +40,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("users");
+    return queryInterface.dropTable("addresses");
   }
 };
